@@ -1,3 +1,6 @@
 gpt-compliance/__pycache__/*
+build/*
+dist/*
+gpt_compliance.egg-info/*
 *.feature
 *.json

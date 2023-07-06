@@ -1,1 +1,1 @@
-recursive-include gpt-compliance *.json
+recursive-include compliance *.json

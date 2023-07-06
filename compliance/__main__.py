@@ -1,10 +1,15 @@
 #!/usr/bin/env python
-import argparse, jieba, json, logging, openai, os, re, sys
+import argparse, jieba, json, logging, openai, os, re, sys, warnings
 
 from gensim import corpora, models, similarities
 from pathlib import Path
+from cryptography.utils import CryptographyDeprecationWarning
+warnings.filterwarnings(action='ignore', category=CryptographyDeprecationWarning)
 
 global level
+
+module = sys.modules['__main__'].__file__
+log = logging.getLogger(module)
 
 def __load_snippets__(file):
     with open(file) as json_file:
@@ -20,8 +25,6 @@ def __find_similar__(dictionary, corpus, tfidf, feature_cnt, snippets, text):
     return snippets[list(snippets)[index]]
 
 snippets_dir = os.path.join(os.path.dirname(__file__), 'snippets')
-module = sys.modules['__main__'].__file__
-log = logging.getLogger(module)
 
 predetermined = [
   {"type" : "terraform-compliance", "format": "gherkin", "snippets": "terraform-compliance.json", "extention": ".feature"},
@@ -90,7 +93,7 @@ def generate(args):
        log.error('{c} - {m}'.format(c = type(e).__name__, m = str(e)))
        sys.exit(os.EX_SOFTWARE)
 
-if __name__ == '__main__':
+def main():
 
     parser = argparse.ArgumentParser()
     parser.add_argument("-f", "--feature", type=str, dest='feature', required=True,
