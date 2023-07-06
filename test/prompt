@@ -1,0 +1,1 @@
+A tag is required for all cloud resources. The tags Owner, Costcenter, Environment are required to virtual machines. Deny the IP public for all cloud resources.
